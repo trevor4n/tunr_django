@@ -1,0 +1,30 @@
+pip3 install --user pipenv
+where pipenv
+
+FIX: 
+python -m pip install pipenv
+C:\Users\trev\AppData\Local\Programs\Python\Python39\python.exe -m pip install --upgrade pip
+pip uninstall virtualenv
+pip uninstall pipenv
+pip install pipenv
+
+
+which pipenv
+pipenv shell
+which pip
+pipenv install django
+pip list
+pipenv install psycopg2-binary //comparable to mongoose (allowing the server runtime to communicate to postgres db)
+pipenv run django-admin startproject tunr_django . //https://git.generalassemb.ly/flex-323/django-installation
+django-admin startapp tunr
+
+Failing:
+psql -U postgres -f settings.sql
+python manage.py runserver
+localhost:8000
+
+add gitignore with: settings.sql, Pipfile.lock, .vscode
+
+
+
+in the future test out aliasing: vim ~ /.bash_profile
