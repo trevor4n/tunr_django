@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'tunr' # todo - 8/11 lecture addition
+    'tunr', # ref - 8/11 lecture addition
+    'django_extensions' # ref - 8/14 lecture addition
 ]
 
 MIDDLEWARE = [
