@@ -7,5 +7,5 @@ urlpatterns = [
     # explicit songs url
     path('songs/', views.song_list, name='song_list'),
     # artist detail route
-    path('artists/<int:pk>', views.artist_detail, name='artist_detail')
+    path('artists/<int:pk>', views.artist_detail, name='artist_detail'),
 ]

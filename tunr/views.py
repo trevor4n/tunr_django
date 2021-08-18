@@ -22,3 +22,4 @@ def artist_detail(req, pk):
         }
         print(f"artist with id={pk} didn't work")
     return render(req, 'tunr/artist_detail.html', {'artist': artist})
+    
