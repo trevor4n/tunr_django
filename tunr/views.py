@@ -22,4 +22,13 @@ def artist_detail(req, pk):
         }
         print(f"artist with id={pk} didn't work")
     return render(req, 'tunr/artist_detail.html', {'artist': artist})
-    
+
+def song_detail(req, pk):
+    try:
+        song = Song.objects.get(id=pk)
+    except:
+        song = {
+            'title': 'No song found'
+        }
+        print(f"song with id={pk} didn't work")
+    return render(req, 'tunr/song_detail.html', {'song': song})

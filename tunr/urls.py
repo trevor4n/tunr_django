@@ -8,4 +8,6 @@ urlpatterns = [
     path('songs/', views.song_list, name='song_list'),
     # artist detail route
     path('artists/<int:pk>', views.artist_detail, name='artist_detail'),
+    # song detail route
+    path('songs/<int:pk>', views.song_detail, name='song_detail'),
 ]

@@ -2,7 +2,8 @@
 <ul>
   {% for song in songs %}
   <li>
-    <a href="">{{ song.title }}</a>
+    <a href="{% url 'song_detail' pk=song.pk %}">{{ song.title }}</a>
+    <!-- <a href="/songs/{{song.id}}">{{ song.title }}</a> -->
   </li>
   {% endfor %}
 </ul>
