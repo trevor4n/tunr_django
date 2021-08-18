@@ -11,4 +11,6 @@ urlpatterns = [
     path('artists/<int:pk>', views.artist_detail, name='artist_detail'),
     # song detail route
     path('songs/<int:pk>', views.song_detail, name='song_detail'),
+    # artist form
+    path('artists/new', views.artist_create, name='artist_create'),
 ]

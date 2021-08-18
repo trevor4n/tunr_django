@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from .models import Artist, Song
+from .forms import ArtistForm
 # Create your views here.
 def artist_list(req):
     artists = Artist.objects.all()  # artists QuerySet
@@ -32,3 +33,10 @@ def song_detail(req, pk):
         }
         print(f"song with id={pk} didn't work")
     return render(req, 'tunr/song_detail.html', {'song': song})
+
+def artist_create(req):
+    if req.method == 'POST':
+        pass
+    else:
+        form = ArtistForm()
+    return render(req, 'tunr/artist_form.html', {'form': form})
