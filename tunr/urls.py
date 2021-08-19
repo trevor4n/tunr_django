@@ -15,4 +15,6 @@ urlpatterns = [
     path('artists/new', views.artist_create, name='artist_create'),
     # artist edit
     path('artists/<int:pk>/edit', views.artist_edit, name='artist_edit'),
+    # artist delete
+    path('artists/<int:pk>/delete', views.artist_delete, name='artist_delete'),
 ]

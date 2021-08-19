@@ -7,6 +7,8 @@
 </h4>
 
 <img src="{{ artist.photo_url }}" alt='' class="artist-photo" />
+<br/><br/>
+<a href="{% url 'artist_delete' pk=artist.pk %}">Delete Artist</a>
 
 <h3>Songs <a href="">(+)</a></h3>
 <ul>

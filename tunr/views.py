@@ -56,3 +56,7 @@ def artist_edit(req, pk):
     else:
         form = ArtistForm(instance=artist)
     return render(req, 'tunr/artist_form.html', {'form': form})
+
+def artist_delete(req, pk):
+    Artist.objects.get(id=pk).delete()
+    return redirect('artist_list')
