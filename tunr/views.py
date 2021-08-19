@@ -36,7 +36,23 @@ def song_detail(req, pk):
 
 def artist_create(req):
     if req.method == 'POST':
-        pass
+        # pass
+        # form = {}
+        form = ArtistForm(req.POST)
+        if form.is_valid():
+            artist = form.save()
+            return redirect('artist_detail', pk=artist.pk)
     else:
         form = ArtistForm()
+    return render(req, 'tunr/artist_form.html', {'form': form})
+
+def artist_edit(req, pk):
+    artist = Artist.objects.get(pk=pk)
+    if req.method == 'POST': # html forms are limited to POST & GET w/o s/t s/a fetch
+        form = ArtistForm(req.POST, instance=artist)
+        if form.is_valid():
+            artist = form.save()
+            return redirect('artist_detail', pk=artist.pk)
+    else:
+        form = ArtistForm(instance=artist)
     return render(req, 'tunr/artist_form.html', {'form': form})
