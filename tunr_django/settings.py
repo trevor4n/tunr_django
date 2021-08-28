@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 
+# Heroku Deployment
+import os
+import dj_database_url
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,12 +24,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-8y4x2xd0*%s0a)n0f!v44b_k-q8)hj$ud4y9t)&!jle%ba_g5n'
+# Heroku - moved to env
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# Heroku - turnkey
+DEBUG = True if os.environ['MODE'] == 'dev' else False
 
-ALLOWED_HOSTS = []
+# Heroku - This can prevent others from using your API, so you can add your deployed front end app url to the list or you can use a '*' to allow anyone to connect to your app
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -38,12 +45,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tunr', # ref - 8/11 lecture addition
-    'django_extensions' # ref - 8/14 lecture addition
+    'django_extensions', # ref - 8/14 lecture addition
+    'corsheaders' # Heroku deploy
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    # Heroku - Add whitenoise right AFTER 'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    # Heroku - Add corsheader right BEFORE 'django.middleware.common.CommonMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -52,6 +64,15 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'tunr_django.urls'
+
+#  Herkou deploy 
+    # To prevent access to your API from other applications add the
+    # CORS_ALLOW_ORIGINS list and include only your front end app's
+    # URLs (localhost and deployed).  This list prevents a front end 
+    # from connecting to your back end unless it comes from a listed origin:
+
+    # OR
+CORS_ALLOW_ALL_ORIGINS = True
 
 TEMPLATES = [
     {
@@ -76,13 +97,14 @@ WSGI_APPLICATION = 'tunr_django.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'tunr',
-        'USER': 'tunruser',
-        'PASSWORD': 'tunr',
-        'HOST': 'localhost'
-    } # todo - 8/11 lecture addition
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'tunr',
+    #     'USER': 'tunruser',
+    #     'PASSWORD': 'tunr',
+    #     'HOST': 'localhost'
+    # } # 8/11 lecture addition
+    'default': dj_database_url.config(conn_max_age=600) # Heroku Deploy
 }
 
 
@@ -123,6 +145,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Heroku deploy
+STATIC_ROOT=os.path.join(BASE_DIR, "static/")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
