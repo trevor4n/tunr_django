@@ -1,20 +1,16 @@
 from django.urls import path
 from . import views
-from django.conf.urls.static import static
+from rest_framework.routers import DefaultRouter
+# from django.conf.urls.static import static
+
+# DRF comes with some pre-configured conventions for URLs, in what they call a router. These URLs map to views that follow a naming convention. 
+# Django can handle multiple request types in one view and using one url
 
 urlpatterns = [
     # artist list is going to be rendered in the root URL
-    path('', views.artist_list, name='artist_list'), 
-    # explicit songs url
-    path('songs/', views.song_list, name='song_list'),
-    # artist detail route
-    path('artists/<int:pk>', views.artist_detail, name='artist_detail'),
-    # song detail route
-    path('songs/<int:pk>', views.song_detail, name='song_detail'),
-    # artist form
-    path('artists/new', views.artist_create, name='artist_create'),
-    # artist edit
-    path('artists/<int:pk>/edit', views.artist_edit, name='artist_edit'),
-    # artist delete
-    path('artists/<int:pk>/delete', views.artist_delete, name='artist_delete'),
+    # path('', views.artist_list, name='artist_list'), 
+    path('artists/', views.ArtistList.as_view(), name='artist_list'),
+    path('artists/<int:pk>', views.ArtistDetail.as_view(), name='artist_detail'),
+    path('songs/', views.SongList.as_view(), name='song_list'),
+    path('songs/<int:pk>', views.SongDetail.as_view(), name='song_detail'),
 ]

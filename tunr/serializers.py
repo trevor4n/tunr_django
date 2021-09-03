@@ -12,7 +12,7 @@ class ArtistSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'photo_url', 'nationality', 'name', 'songs',)
 
 class SongSerializer(serializers.HyperlinkedModelSerializer):
-    artist = serializers.HyperlinkedModelSerializer(
+    artist = serializers.HyperlinkedRelatedField(
         view_name='artist_detail',
         read_only=True
     )
