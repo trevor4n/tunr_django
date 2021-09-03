@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'tunr', # ref - 8/11 lecture addition
     'django_extensions', # ref - 8/14 lecture addition
-    'corsheaders' # Heroku deploy
+    'corsheaders', # Heroku deploy
+    'rest_framework' # Django REST Framework
 ]
 
 MIDDLEWARE = [
@@ -153,3 +154,12 @@ STATIC_ROOT=os.path.join(BASE_DIR, "static/")
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Django REST Framework
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
