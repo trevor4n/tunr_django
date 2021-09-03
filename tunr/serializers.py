@@ -7,15 +7,23 @@ class ArtistSerializer(serializers.HyperlinkedModelSerializer):
         many=True,
         read_only=True
     )
+    artist_url = serializers.ModelSerializer.serializer_url_field(
+        view_name='artist_detail'
+    )
     class Meta:
         model = Artist
-        fields = ('id', 'photo_url', 'nationality', 'name', 'songs',)
+        fields = ('id', 'artist_url', 'photo_url', 'nationality', 'name', 'songs',)
 
 class SongSerializer(serializers.HyperlinkedModelSerializer):
     artist = serializers.HyperlinkedRelatedField(
         view_name='artist_detail',
         read_only=True
     )
+    artist_id = serializers.PrimaryKeyRelatedField(
+        queryset=Artist.objects.all(),
+        source='artist'
+    )
     class Meta:
         model = Song
-        fields = ('id', 'preview_url', 'album', 'title', 'artist')
+        # fields = ('id', 'preview_url', 'album', 'title', 'artist')
+        fields = ('id', 'artist', 'artist_id', 'title', 'album', 'preview_url')
