@@ -1,11 +1,21 @@
 from django.shortcuts import render, redirect
+# Django REST Framework - JSON Responses in Django
+from django.http import JsonResponse
 
 from .models import Artist, Song
 from .forms import ArtistForm
-# Create your views here.
+
 def artist_list(req):
     artists = Artist.objects.all()  # artists QuerySet
-    return render(req, 'tunr/artist_list.html', {'artists': artists}) # request argument, render template, dictionary
+    # request argument, render template, dictionary
+    return render(req, 'tunr/artist_list.html', {'artists': artists}) 
+    # ...
+    # Django REST Framework - JSON Responses in Django (similar to Express)
+    artists = Artist.objects.all().values('name', 'nationality', 'photo_url') # only grab some attributes from our database, else we can't serialize it.
+    artists_list = list(artists) # convert our artists to a list instead of QuerySet
+    return JsonResponse(artists_list, safe=False) # safe=False is needed if the first parameter is not a dictionary.
+    # ...
+    
 
 def song_list(req):
     songs = Song.objects.all()
